@@ -32,9 +32,6 @@ public class proyecto_2 {
 				}
 				
 				matriz matrizActual = new matriz(n,m,k,matrizBase);
-				matrizActual.subMatrizMIN();
-				Grafo grafo = matrizActual.crearGrafo();
-				grafo.verificarGrafo();
 				this.listaMatrices.add(matrizActual);
 				numMatrices--;
 			}
@@ -45,7 +42,13 @@ public class proyecto_2 {
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
-	
+	public void Solucion() {
+		for(matriz matrizActual: listaMatrices) {
+			matrizActual.subMatrizMIN();
+			Grafo grafo = matrizActual.crearGrafo();
+			grafo.verificarGrafo();
+		}
+	}
 	
 
 }
