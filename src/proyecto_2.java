@@ -33,6 +33,8 @@ public class proyecto_2 {
 				
 				matriz matrizActual = new matriz(n,m,k,matrizBase);
 				matrizActual.subMatrizMIN();
+				Grafo grafo = matrizActual.crearGrafo();
+				grafo.verificarGrafo();
 				this.listaMatrices.add(matrizActual);
 				numMatrices--;
 			}

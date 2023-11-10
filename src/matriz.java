@@ -59,5 +59,22 @@ public class matriz {
 		}
 	}
 	
+	public Grafo crearGrafo() {
+		Grafo grafoActual = new Grafo(this.k); 
+	    
+	    for(int llaveActual = 0; llaveActual < this.k; llaveActual++) {
+	    	
+	    	int i_final = listaCoordFIN.get(llaveActual)[0];
+	    	int j_final = listaCoordFIN.get(llaveActual)[1];
+	    	
+	    	for(int i_inicial = listaCoordIN.get(llaveActual)[0];i_inicial <= i_final;i_inicial++) {
+	    		for(int j_inicial = listaCoordIN.get(llaveActual)[1];j_inicial <= j_final;j_inicial++) {
+	    			grafoActual.getGrafo()[llaveActual][this.matriz[i_inicial][j_inicial]-1] = 1;
+	    		}
+	    	}
+	    }
+	    return grafoActual;
+	}
+	
 
 }
