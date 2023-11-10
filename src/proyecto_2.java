@@ -45,8 +45,21 @@ public class proyecto_2 {
 	public void Solucion() {
 		for(matriz matrizActual: listaMatrices) {
 			matrizActual.subMatrizMIN();
-			Grafo grafo = matrizActual.crearGrafo();
-			grafo.verificarGrafo();
+			Grafo grafo = null;
+			try {
+				grafo = matrizActual.crearGrafo();
+				int[] resultado = grafo.bfsDependencias();
+				for(int i: resultado) {
+					int[] tamano = matrizActual.tamano(i);
+					System.out.println((i+1)+ " " +
+									tamano[0] + " "+
+									tamano[1] + " "+
+									tamano[2] + " "+
+									tamano[3] );
+				}
+			} catch (Exception e) {
+				System.out.println("NO SE PUEDE");
+			}
 		}
 	}
 	

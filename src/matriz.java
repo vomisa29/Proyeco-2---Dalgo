@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class matriz {
 	private int m;
@@ -59,22 +61,61 @@ public class matriz {
 		}
 	}
 	
-	public Grafo crearGrafo() {
-		Grafo grafoActual = new Grafo(this.k); 
+	public Grafo crearGrafo() throws Exception {
+		Grafo grafoActual = new Grafo(this.k, listaCoordIN, listaCoordFIN); 
 	    
 	    for(int llaveActual = 0; llaveActual < this.k; llaveActual++) {
 	    	
 	    	int i_final = listaCoordFIN.get(llaveActual)[0];
 	    	int j_final = listaCoordFIN.get(llaveActual)[1];
-	    	
+
+			
+			HashSet<Integer> set = new HashSet<Integer>();
+			grafoActual.getGobernantes().put(llaveActual,set);
+			
 	    	for(int i_inicial = listaCoordIN.get(llaveActual)[0];i_inicial <= i_final;i_inicial++) {
 	    		for(int j_inicial = listaCoordIN.get(llaveActual)[1];j_inicial <= j_final;j_inicial++) {
-	    			grafoActual.getGrafo()[llaveActual][this.matriz[i_inicial][j_inicial]-1] = 1;
+	    			int llaveComparar = this.matriz[i_inicial][j_inicial] - 1;
+	    			
+	    			if (grafoActual.getDependencias().get(llaveComparar) == null) {
+	    				set = new HashSet<Integer>();
+	    				grafoActual.getDependencias().put(llaveComparar,set);
+    				} 
+    				
+	    			if (llaveComparar != llaveActual) {
+	    				
+	    				if(grafoActual.getDependencias().get(llaveActual)== null ||
+	    					grafoActual.getDependencias().get(llaveActual).contains(llaveComparar)
+	    					&& 
+	    					grafoActual.getGobernantes().get(llaveComparar).contains(llaveActual)) {
+	    					throw new Exception("NO TIENE SOLUCION");
+	    					
+	    				}else {
+	    					grafoActual.getDependencias().get(llaveComparar).add(llaveActual);
+	    					grafoActual.getGobernantes().get(llaveActual).add(llaveComparar);
+	    				}
+	    				 
+	    				
+	    				
+	    			} 
 	    		}
 	    	}
 	    }
 	    return grafoActual;
 	}
+	
+	public int[] tamano(int i) {
+		int[] result = new int[4];
+		result[0] = listaCoordIN.get(i)[0] + 1;
+		result[1] = listaCoordFIN.get(i)[0] + 1;
+		result[2] = listaCoordIN.get(i)[1] + 1;
+		result[3] = listaCoordFIN.get(i)[1] + 1;
+		
+		return result;
+		
+	}
+	
+	
 	
 
 }
